@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<body>
+<H1>CONSTRUCT BOOKS</H1>
+
+
+<style>
+@import url('https://fonts.cdnfonts.com/css/old-english-five');
+@import url('https://fonts.cdnfonts.com/css/emmeline');
+
+H1{
+	font-family: old english five;
+    font-style:normal;
+    font-weight:400;
+    font-size: 50px;
+  letter-spacing: 5vh;
+  text-align: center;
+}
+
+#generate-btn{
+background-color: black;
+color: rgb(255, 255, 255);
+font-family: 'EMMELINE', sans-serif;
+font-size: 20px;
+letter-spacing: 2px;
+padding: 11px;
+border: 0px;
+margin-bottom: 60px;
+}
+#random-word-output{
+	text-align: center;
+width: 50%;
+margin-left: 25%;
+font-size: 15px;
+font-family: 'EMMELINE', sans-serif;
+letter-spacing: 1.5px;
+line-height: 20px;
+
+}
+</style>
+
+  <div class="container">
+
+   <center> <button id="generate-btn">CREATE BOOKS</button></center>
+    <pre id="random-word-output"></pre>
+  </div>
+  <script>
+  
+    function generateRandomWord() {
+  
+      const characters = 'abcdefghijklmnopqrstuvwxyz.,:;';
+      const charactersLength = characters.length;
+
+    
+      let randomWord = '';
+
+
+      for (let i = 0; i < 40; i++) {
+        let line = '';
+        
+
+        for (let j = 0; j < 80; j++) {
+
+          const randomChar = characters.charAt(Math.floor(Math.random() * charactersLength));
+          
+
+          line += randomChar;
+        }
+        
+
+        randomWord += line + '\n';
+      }
+
+      return randomWord;
+    }
+
+    document.getElementById('generate-btn').addEventListener('click', function() {
+
+      const randomWord = generateRandomWord();
+      
+
+      document.getElementById('random-word-output').textContent = randomWord;
+    });
+  </script>
+</body>
+</html>
+
+	</body>
+</html>

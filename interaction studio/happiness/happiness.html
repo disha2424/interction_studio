@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+	<link rel="stylesheet" href="happiness.css">
+	<link rel="stylesheet" href="my-slider.css"/>
+<script src="ism-2.2.min.js"></script>
+
+	
+	<div class="tutorial">
+		<main class="page">
+		  <div class="page__inner">
+
+
+	
+	  <p class="content">
+		<span class="typewrite anim-typewrite js-typewrite"></span>
+	  </p>
+	
+	
+	  <div class='container'>
+
+		<div class="ism-slider" data-radios="false" id="my-slider">
+		  <ol>
+			<li>
+				<div class="text">
+					<p>Five hundred years ago, the chief of an upper hexagon 2 came upon a book as confusing as the others, but which had nearly two pages of homogeneous lines. He showed his find to a wandering decoder who told him the lines were written in Portuguese; others said they were Yiddish. Within a century, the language was established: a Samoyedic Lithuanian dialect of Guarani, with classical Arabian inflections. The content was also deciphered: some notions of combinative analysis, illustrated with examples of variations with unlimited repetition. These examples made it possible for a librarian of genius to discover the fundamental law of the Library. This thinker observed that all the books, no matter how diverse they might be, are made up of the same elements: the space, the period, the comma, the twenty-two letters of the alphabet. He also alleged a fact which travelers have confirmed: In the vast Library there are no two identical books. From these two incontrovertible premises he deduced that the Library is total and that its shelves register all the possible combinations of the twenty-odd orthographical symbols (a number which, though extremely vast, is not infinite): Everything: the minutely detailed history of the future, the archangels' autobiographies, the faithful catalogues of the Library, thousands and thousands of false catalogues, the demonstration of the fallacy of those catalogues, the demonstration of the fallacy of the true catalogue, the Gnostic gospel of Basilides, the commentary on that gospel, the commentary on the commentary on that gospel, the true story of your death, the translation of every book in all languages, the interpolations of every book in all books.</p></div>
+			</li>
+			<li>
+				<div class="text">
+				<p>When it was proclaimed that the Library contained all books, the first impression was one of extravagant happiness. All men felt themselves to be the masters of an intact and secret treasure. There was no personal or world problem whose eloquent solution did not exist in some hexagon. The universe was justified, the universe suddenly usurped the unlimited dimensions of hope. At that time a great deal was said about the Vindications: books of apology and prophecy which vindicated for all time the acts of every man in the universe and retained prodigious arcana for his future.</p><BR></div>
+			</li>
+		  </ol>
+		</div>
+<BR>
+	<BR>
+	
+
+
+
+
+
+
+		
+		<!-- The cursor elements --> 
+		<div class="cursor cursor--small"></div>
+		<canvas class="cursor cursor--canvas" resize></canvas>
+		
+		<div class="credits">
+		  <a href="https://github.com/skaltenegger/customcursor"></a>
+		  <a href="https://tympanus.net/codrops/2019/01/31/custom-cursor-effects/"></a>
+		</div>
+		
+	  </div>
+	</main>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.0/paper-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+
+<script>var i = 0;
+	var txt = 'HAPPINESS';
+	
+	function typeWriter() {
+	  if (i < txt.length) {
+		document.getElementsByClassName('js-typewrite')[0].innerHTML += txt.charAt(i);
+		i++;
+		setTimeout(typeWriter, 65);
+	  }
+	}
+	
+	setTimeout(typeWriter, 1000);
+
+	let clientX = 100;
+let clientY = 100;
+const innerCursor = document.querySelector(".cursor--small");
+
+const initCursor = () => {
+  // add listener to track the current mouse position
+  document.addEventListener("mousemove", e => {
+    clientX = e.clientX;
+    clientY = e.clientY;
+  });
+  
+  // transform the innerCursor to the current mouse position
+  // use requestAnimationFrame() for smooth performance
+  const render = () => {
+    innerCursor.style.transform = `translate(${clientX}px, ${clientY}px)`;
+    // if you are already using TweenMax in your project, you might as well
+    // use TweenMax.set() instead
+    // TweenMax.set(innerCursor, {
+    //   x: clientX,
+    //   y: clientY
+    // });
+    
+    requestAnimationFrame(render);
+  };
+  requestAnimationFrame(render);
+};
+
+initCursor();
+
+let lastX = 0;
+let lastY = 0;
+let isStuck = false;
+let showCursor = false;
+let group, stuckX, stuckY, fillOuterCursor;
+
+const initCanvas = () => {
+  const canvas = document.querySelector(".cursor--canvas");
+  const shapeBounds = {
+    width: 75,
+    height: 75
+  };
+  paper.setup(canvas);
+  const strokeColor = "rgba(0, 0, 0, 0.5)";
+  const strokeWidth = 1;
+  const segments = 8;
+  const radius = 20;
+  
+  // we'll need these later for the noisy circle
+  const noiseScale = 150; // speed
+  const noiseRange = 4; // range of distortion
+  let isNoisy = false; // state
+  
+  // the base shape for the noisy circle
+  const polygon = new paper.Path.RegularPolygon(
+    new paper.Point(0, 0),
+    segments,
+    radius
+  );
+  polygon.strokeColor = strokeColor;
+  polygon.strokeWidth = strokeWidth;
+  polygon.smooth();
+  group = new paper.Group([polygon]);
+  group.applyMatrix = false;
+  
+  const noiseObjects = polygon.segments.map(() => new SimplexNoise());
+  let bigCoordinates = [];
+  
+  // function for linear interpolation of values
+  const lerp = (a, b, n) => {
+    return (1 - n) * a + n * b;
+  };
+  
+  // function to map a value from one range to another range
+  const map = (value, in_min, in_max, out_min, out_max) => {
+    return (
+      ((value - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
+    );
+  };
+  
+  // the draw loop of Paper.js 
+  // (60fps with requestAnimationFrame under the hood)
+  paper.view.onFrame = event => {
+    // using linear interpolation, the circle will move 0.2 (20%)
+    // of the distance between its current position and the mouse
+    // coordinates per Frame
+    lastX = lerp(lastX, clientX, 0.2);
+    lastY = lerp(lastY, clientY, 0.2);
+    group.position = new paper.Point(lastX, lastY);
+  }
+}
+
+initCanvas();
+	</script>
+
+<br><br><br><br><br><br><br><br>
+<center>
+	<button class="btn-53">
+		<div class="original">NEXT</div>
+		<div class="letters">
+			
+			<a href="../greed/greed.html">
+		  <span>N</span>
+		  <span>E</span>
+		  <span>X</span>
+		  <span>T</span>
+		</div>
+	</a>
+	  </button></center>
+	  <br><br><br><br>
+
+	</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="destroy.css">
+<body>
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const openRectangleButtons = document.querySelectorAll(".open-rectangle");
+
+    openRectangleButtons.forEach((button, index) => {
+        button.addEventListener("click", () => {
+            const rectangleContainer = document.getElementById(`rectangle-container-${index + 1}`);
+
+            // Remove any existing rectangles
+            const existingRectangles = rectangleContainer.querySelectorAll('.rectangle');
+            existingRectangles.forEach(rectangle => {
+                rectangle.remove();
+            });
+
+            const rectangle = document.createElement("div");
+            rectangle.className = "rectangle";
+            rectangle.style.left = Math.random() * (window.innerWidth - 200) + "px";
+            rectangle.style.top = Math.random() * (window.innerHeight - 100) + "px";
+
+            const rectangleText = document.createElement("div");
+            rectangleText.className = "rectangle-text";
+            rectangleText.textContent = "";
+
+            const openRectangleInsideButton = document.createElement("button");
+            openRectangleInsideButton.className = "button1-text";
+            openRectangleInsideButton.textContent = "DESTROY!";
+            openRectangleInsideButton.addEventListener("click", () => {
+                rectangle.remove(); 
+            });
+
+            rectangleText.appendChild(openRectangleInsideButton);
+            rectangle.appendChild(rectangleText);
+            rectangleContainer.appendChild(rectangle);
+
+            rectangle.style.display = "block";
+        });
+    });
+});
+
+
+</script>
+
+
+<div class="container1">
+  <div class="content1">
+      <h2>DESTROY BOOKS</h2>
+      <button class="open-rectangle">OPEN A NEW BOOK</button>
+  </div>
+  <div id="rectangle-container-1"></div>
+</div>
+
+<div class="text1">
+	<p>Others, inversely, believed that it was fundamental to eliminate useless works. They invaded the hexagons, showed credentials which were not always false, leafed through a volume with displeasure and condemned whole shelves: their hygienic, ascetic furor caused the senseless perdition of millions of books. Their name is execrated, but those who deplore the "treasures" destroyed by this frenzy neglect two notable facts. One: the Library is so enormous that any reduction of human origin is infinitesimal. The other: every copy is unique, irreplaceable, but (since the Library is total) there are always several hundred thousand imperfect facsimiles: works which differ only in a letter or a comma. Counter to general opinion, I venture to suppose that the consequences of the Purifiers' depredations have been exaggerated by the horror these fanatics produced. They were urged on by the delirium of trying to reach the books in the Crimson Hexagon: books whose format is smaller than usual, all-powerful, illustrated and magical. </p></div>
+    <br><br><br><br><br><br><br><br>
+    <center>
+        <button class="btn-53">
+            <div class="original">NEXT</div>
+            <div class="letters">
+                
+                <a href="../trying to find the book/trying.html">
+              <span>N</span>
+              <span>E</span>
+              <span>X</span>
+              <span>T</span>
+            </div>
+        </a>
+          </button></center>
+          <br><br><br><br>
+  
+</head>
+</body>
+</html>

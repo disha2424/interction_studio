@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<link rel="stylesheet" href="books.css">
+
+<h1>BOOKS</h1>
+<center><PRE>
+
+ __________________   __________________
+ .-/|                  \ /                  |\-.
+ ||||                   |                   ||||
+ ||||                   |                   ||||
+ ||||                   |                   ||||
+ ||||                   |                   ||||
+ ||||                   |                   ||||
+ ||||                   |                   ||||
+ ||||                   |                   ||||
+ ||||                   |                   ||||
+ ||||                   |                   ||||
+ ||||                   |            pg.410 ||||
+ ||||__________________ | __________________||||
+ ||/===================\|/===================\||
+ `--------------------~___~-------------------''
+</PRE></center>
+
+<div class="text">
+<center>
+<P>There are five shelves for each of the hexagon's walls; each shelf contains thirty-five books of uniform format; each book is of four hundred and ten pages; each page, of forty lines, each line, of some eighty letters which are black in color. There are also letters on the spine of each book; these letters do not indicate or prefigure what the pages will say. I know that this incoherence at one time seemed mysterious. Before summarizing the solution (whose discovery, in spite of its tragic projections, is perhaps the capital fact in history) I wish to recall a few axioms.</P></div></center>
+
+
+	<ul>
+		<div class="a"><li>5 Shelves</li></div>
+		<div class="b"><li>35 Books</li></div>
+	    <div class="c"><li>410 Pages</li></div>
+	    <div class="d"><li>40 Lines</li></div>
+	    <div class="e"><li>80 Letters</li></div>
+
+	</ul>
+
+	<br>	<br>	<br>	<br>
+
+
+	
+
+<div class="shelves">
+	
+	<div id="imageButton" class="image-button">
+	<div class="book1">kawjhfbejhwe</div>
+	<div class="book2">wkeahfhkjfhv</div>
+	<div class="book3">akmbfhjlhfuj</div>
+	<div class="book4">akmbfhjlhfuj</div>
+	<div class="book5">akmbfhjlhfuj</div>
+	<div class="book6">akmbfhjlhfuj</div>
+	<div class="book7">akmbfhjlhfuj</div>
+	</div>
+</div>
+
+<div id="modal" class="modal">
+	<div class="modal-content slit-in-vertical">
+		<span class="close-button" onclick="closeModal()">&times;</span>
+		<hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>
+		<hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>
+		pg.410
+	</div>
+</div>
+
+<script>document.querySelectorAll(".image-button").forEach(function(button, index) {
+    button.addEventListener("click", function() {
+        openModal(index);
+    });
+});
+
+function openModal(index) {
+    let modal = document.querySelectorAll(".modal")[index];
+    modal.style.display = "block";
+}
+
+document.querySelectorAll(".close-button").forEach(function(button) {
+    button.addEventListener("click", closeModal);
+});
+
+function closeModal() {
+    document.querySelectorAll(".modal").forEach(function(modal) {
+        modal.style.display = "none";
+    });
+}</script>
+
+
+<br><br><br><br><br><br><br><br>
+<center>
+	<button class="btn-53">
+		<div class="original">NEXT</div>
+		<div class="letters">
+			
+			<a href="../infinity/Infinity.html">
+		  <span>N</span>
+		  <span>E</span>
+		  <span>X</span>
+		  <span>T</span>
+		</div>
+	</a>
+	  </button></center>
+	  <br><br><br><br>
+	</body>
+</html>
